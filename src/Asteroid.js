@@ -24,10 +24,10 @@ export default class Asteroid {
     * @param {integer} dir - the normalized direction of the asteroid
 	* @param {integer} speed - the magnitude of velocity of the asteroid
     */
-	constructor(size, x, y, gameheight, gamewidth, dir, speed) {
+	constructor(size, x, y, gameheight, gamewidth, dir, speed,step,start) {
 		this.size = size;
-		this.step = 10;
-		this.start = 10;
+		this.step = step;
+		this.start = start;
 		this.x = x;
 		this.y = y;
 		this.radius = size * this.step + this.start;
@@ -139,7 +139,12 @@ export default class Asteroid {
 	 * Creates new asteroids if needed.
 	 */
 	destroy() {
-		document.getElementById('explode').play();
+		if (document.getElementById('explode').paused) {
+			document.getElementById('explode').play();
+		}
+		else {
+			document.getElementById('explode').currentTime = 0;
+		}
 		var newsize = this.size / 2;
 		if (newsize >= 1) {
 			var perp = Vector.normalize(Vector.perpendicular(this.dir));

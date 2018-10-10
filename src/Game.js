@@ -182,6 +182,7 @@ import * as Vector from './Vector';
         ctx.fillText("Game Over.",this.WIDTH/2 - 100,this.HEIGHT/2 -20);
       }
       playerdie() {
+        document.getElementById('loss').play();
         this.playerlives--;
         if (this.playerlives < 0) {
             this.over = true;
@@ -325,6 +326,7 @@ import * as Vector from './Vector';
       this.checkcollisions();
       if(this.asteroids.length == 0) {
           this.difficulty++;
+          document.getElementById('level').play();
           // give a player an extra life once they complete the level.
           this.playerlives = Math.min(this.playerlives + 1, 3);
           for (var i = 0; i < this.difficulty + 6; i++) {
