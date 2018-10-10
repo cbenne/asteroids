@@ -2,7 +2,7 @@ import Asteroid from './Asteroid';
 import Ship from './Ship';
 import Bullet from './Bullet';
 import * as Vector from './Vector';
-
+import Heart from './Heart';
 /** @class Game
   * A class representing the high-level functionality
   * of a game - the game loop, buffer swapping, etc.
@@ -86,6 +86,7 @@ import * as Vector from './Vector';
       this.difficulty = 1;
       this.score = 0;
       this.over = false;
+      this.hearts = [];
       //quick function to format the score
       Number.prototype.pad = function(size) {
         var s = String(this);
@@ -283,6 +284,10 @@ import * as Vector from './Vector';
                     if (x) {
                         this.asteroids.push(x.aster1);
                         this.asteroids.push(x.aster2);
+                    } else {
+                        if (this.difficulty > 2 && Math.random() > 0.97) {
+                            this.hearts.push( new Heart(this.asteroids[i].x,this.asteroids[i].y));
+                        }
                     }
                     this.asteroids.splice(i,1);
                     this.bullets.splice(j,1);
@@ -293,6 +298,13 @@ import * as Vector from './Vector';
                 }
               }
             
+          }
+          for (i = 0; i < this.hearts.length; i++) {
+              if (Vector.distance2(this.player,this.hearts[i]) < Math.pow(this.player.radius + this.hearts[i].radius,2)) {
+                  this.playerlives ++;
+                  this.hearts.splice(i,1);
+                  i--;
+              }
           }
       }
 
@@ -357,6 +369,9 @@ import * as Vector from './Vector';
         })
         this.bullets.forEach(function (b) {
             b.render(bbctx);
+        })
+        this.hearts.forEach(function (h) {
+            h.render(bbctx);
         })
         this.drawOverlay(this.backBufferCtx);
         if (this.difficulty == 1) {
