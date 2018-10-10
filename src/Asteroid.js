@@ -156,8 +156,8 @@ export default class Asteroid {
 				alert('Bad number detected.');
 			}
 			//since m1*v1 = m1/2(v2 + v3) and v2 = v3, v1 = v2 = v3 when dividing size by two.
-			var a1 = new Asteroid(newsize,x1,y1,this.gameheight,this.gamewidth,Vector.rotate(this.dir,-0.2),this.speed);
-			var a2 = new Asteroid(newsize,x2,y2,this.gameheight,this.gamewidth,Vector.rotate(this.dir,0.2),this.speed);
+			var a1 = new Asteroid(newsize,x1,y1,this.gameheight,this.gamewidth,Vector.rotate(this.dir,-0.2),this.speed,10,10);
+			var a2 = new Asteroid(newsize,x2,y2,this.gameheight,this.gamewidth,Vector.rotate(this.dir,0.2),this.speed,10,10);
 			return {
 				aster1: a1,
 				aster2: a2
